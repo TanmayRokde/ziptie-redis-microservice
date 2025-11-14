@@ -4,13 +4,10 @@ const config = require('./config/env');
 
 const app = express();
 
-const allowOrigin = (origin) => {
-  if (!origin || config.corsAllowedOrigins.length === 0) {
-    return true;
-  }
-
-  return config.corsAllowedOrigins.includes(origin);
-};
+const allowOrigin = (origin) =>
+  !origin ||
+  config.corsAllowedOrigins.length === 0 ||
+  config.corsAllowedOrigins.includes(origin.replace(/\/$/, ''));
 
 app.use((req, res, next) => {
   const origin = req.headers.origin;
