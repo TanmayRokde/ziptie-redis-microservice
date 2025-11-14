@@ -4,40 +4,30 @@ const config = require('./config/env');
 
 const app = express();
 
-console.log('[cors] redis allowed origins:', config.corsAllowedOrigins);
-
-const allowOrigin = (origin) =>
-  !origin ||
-  config.corsAllowedOrigins.length === 0 ||
-  config.corsAllowedOrigins.includes(origin.replace(/\/$/, ''));
+console.log('[cors] redis allowing all origins for testing');
 
 app.use((req, res, next) => {
   const origin = req.headers.origin;
   console.log('[cors] redis request origin:', origin || '<none>');
 
-  if (allowOrigin(origin)) {
-    if (origin) {
-      res.header('Access-Control-Allow-Origin', origin);
-      res.header('Vary', 'Origin');
-    } else if (config.corsAllowedOrigins.length === 0) {
-      res.header('Access-Control-Allow-Origin', '*');
-    }
-
-    res.header(
-      'Access-Control-Allow-Headers',
-      req.headers['access-control-request-headers'] || 'Content-Type, Authorization'
-    );
-    res.header('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
-
-    if (req.method === 'OPTIONS') {
-      return res.sendStatus(204);
-    }
-
-    return next();
+  if (origin) {
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Vary', 'Origin');
+  } else {
+    res.header('Access-Control-Allow-Origin', '*');
   }
 
-  console.warn('[cors] redis origin rejected:', origin);
-  return res.status(403).json({ message: 'Not allowed by CORS' });
+  res.header(
+    'Access-Control-Allow-Headers',
+    req.headers['access-control-request-headers'] || 'Content-Type, Authorization'
+  );
+  res.header('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
+
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(204);
+  }
+
+  return next();
 });
 
 app.use(express.json());

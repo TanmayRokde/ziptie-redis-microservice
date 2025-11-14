@@ -7,35 +7,12 @@ const toNumber = (value, fallback) => {
   return Number.isNaN(parsed) ? fallback : parsed;
 };
 
-const defaultAllowedOrigins = [
-  'https://ziptie-mvp-backend.vercel.app',
-  'https://ziptie-mvp-backend-beta.vercel.app',
-  'http://localhost:4000'
-];
-
-const parseList = (value = '') => {
-  const envOrigins = value
-    .split(',')
-    .map((item) => item.trim())
-    .filter(Boolean);
-
-  const combined = [...defaultAllowedOrigins, ...envOrigins];
-
-  return Array.from(
-    new Set(
-      combined
-        .map((origin) => origin.replace(/\/$/, ''))
-        .filter(Boolean)
-    )
-  );
-};
-
 const config = {
   port: toNumber(process.env.PORT, 3000),
   baseShortUrl: process.env.BASE_SHORT_URL,
   shortKeyLength: toNumber(process.env.SHORT_KEY_LENGTH, 12),
   redis: {},
-  corsAllowedOrigins: parseList(process.env.CORS_ALLOWED_ORIGINS),
+  corsAllowedOrigins: ['*'],
   upstash: {
     restUrl: process.env.UPSTASH_REDIS_REST_URL,
     restToken: process.env.UPSTASH_REDIS_REST_TOKEN
