@@ -15,6 +15,7 @@ You can provide connection details via a `.env` file or environment variables:
 - `BASE_SHORT_URL` (optional, prepended to the generated short key in responses)
 - `REDIS_URL` (full connection string, e.g. `redis://localhost:6379`)
 - or `REDIS_HOST`, `REDIS_PORT`, `REDIS_USERNAME`, `REDIS_PASSWORD`
+- `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` (optional, uses Upstash REST API and falls back to the local Redis settings above when absent)
 
 Copy `.env.example` to `.env` to get started with sensible defaults.
 

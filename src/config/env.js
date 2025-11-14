@@ -7,11 +7,22 @@ const toNumber = (value, fallback) => {
   return Number.isNaN(parsed) ? fallback : parsed;
 };
 
+const parseList = (value = '') =>
+  value
+    .split(',')
+    .map((item) => item.trim())
+    .filter(Boolean);
+
 const config = {
   port: toNumber(process.env.PORT, 3000),
   baseShortUrl: process.env.BASE_SHORT_URL,
   shortKeyLength: toNumber(process.env.SHORT_KEY_LENGTH, 12),
-  redis: {}
+  redis: {},
+  corsAllowedOrigins: parseList(process.env.CORS_ALLOWED_ORIGINS),
+  upstash: {
+    restUrl: process.env.UPSTASH_REDIS_REST_URL,
+    restToken: process.env.UPSTASH_REDIS_REST_TOKEN
+  }
 };
 
 if (!config.shortKeyLength || config.shortKeyLength < 1) {
