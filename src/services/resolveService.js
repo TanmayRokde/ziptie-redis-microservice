@@ -23,7 +23,7 @@ const resolveShortUrl = async (shortKey, trackAccess = true) => {
     }
     
     try {
-      const urlObject = JSON.parse(urlData);
+      const urlObject = typeof urlData === 'string' ? JSON.parse(urlData) : urlData;
       
       return {
         ...urlObject,
