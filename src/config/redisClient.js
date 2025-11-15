@@ -16,6 +16,7 @@ const createUpstashClient = () => {
 
   return {
     exists: (...args) => upstash.exists(...args),
+    get: (...args) => upstash.get(...args),
     set: (key, value, options = {}) => {
       const upstashOptions = {};
 
