@@ -48,6 +48,9 @@ The service focuses solely on short-link lifecycle:
 
 - Node.js 18+
 - Redis instance (localhost, Docker, or Upstash REST tokens)
+- pnpm
+
+> Package management is pnpm-only; `pnpm-lock.yaml` is the single source of truth. Avoid generating `package-lock.json`.
 
 ## Configuration ⚙️
 
@@ -75,15 +78,15 @@ Providing the Upstash variables toggles the REST client automatically. Otherwise
 ## Installation 📦
 
 ```bash
-npm install
+pnpm install
 ```
 
 ## Running 🏃
 
 ```bash
-npm run dev   # if nodemon is configured
+pnpm run dev   # if nodemon is configured
 # or
-npm start
+pnpm start
 ```
 
 Server binds to `PORT` (defaults to `3000`).
