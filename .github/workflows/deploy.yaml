@@ -25,9 +25,9 @@ jobs:
 
       - name: Build, tag, and push image
         run: |
-          IMAGE_URI=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/microservice
-          docker build -t microservice .
-          docker tag microservice:latest $IMAGE_URI:latest
-          docker tag microservice:latest $IMAGE_URI:${{ github.sha }}
+          IMAGE_URI=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/ziptie-microservice
+          docker build -t ziptie-microservice .
+          docker tag ziptie-microservice:latest $IMAGE_URI:latest
+          docker tag ziptie-microservice:latest $IMAGE_URI:${{ github.sha }}
           docker push $IMAGE_URI:latest
           docker push $IMAGE_URI:${{ github.sha }}
