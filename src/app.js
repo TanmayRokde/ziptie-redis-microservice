@@ -33,7 +33,6 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use('/', routes);
 
-// Basic error handler to avoid leaking errors
 app.use((err, req, res, next) => {
   console.error('[app:error]', err);
   res.status(500).json({ message: 'Internal server error' });
